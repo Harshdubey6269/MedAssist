@@ -1,0 +1,82 @@
+<html>
+  <head>
+      <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+      <link href="/static/category.css" rel="stylesheet"/>
+
+    <title>CATEGORY INTERFACE</title>
+  </head>
+<form action="/submitcategory" enctype="multipart/form-data" method="post">  {% csrf_token %}
+
+   <body>
+
+            <div class="maincontainer">
+
+                <div class="box">
+
+                    <div class="boxheading">
+        <span  style="padding:5px;width:20%;display:flex;justify-content: flex-start;"><a href="http://localhost:8000/displaycategories/"><i class="material-icons" style="color:#FFFF;font-size: 35px;">toc</i></a></span>
+            <span class="headingtext"> Category Interface</span>
+
+                         </div>
+
+                    <div>
+                         <div class="row">
+                               <div class="input-field col s12">
+                                   <i class="material-icons prefix">account_circle</i>
+                                   <input id="categoryname" name="categoryname"  type="text" class="validate" required>
+                                   <label for="categoryname">Category name</label>
+                               </div>
+                         </div>
+
+                         <div class="row">
+                                  <div class="input-field col s12">
+                                         <div class="file-field input-field">
+                                              <div class="btn">
+                                                 <span>File</span>
+                                                <input type="file" name="categoryicon" required>
+                                              </div>
+                                              <div class="file-path-wrapper">
+                                                      <input class="file-path validate" type="text">
+                                              </div>
+                                         </div>
+                                  </div>
+                         </div>
+
+                        <div class="row">
+                            <div class="col s6 btnrow">
+                                 <button class="btn waves-effect waves-light btstyle" type="submit" name="action">Submit
+                                    <i class="material-icons right">send</i>
+                                 </button>
+                            </div>
+
+                            <div class="col s6 btnrow">
+                                   <button class="btn waves-effect waves-light btstyle" type="reset" name="action">Reset
+                                    <i class="material-icons right">delete</i>
+                                  </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 btnrow">
+                                <span class="messagestyle">{{message}}</span>
+                             </div>
+                       </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+  </body>
+         <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </form>
+</html>

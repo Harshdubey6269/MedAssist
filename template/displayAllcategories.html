@@ -1,0 +1,223 @@
+<html>
+    <head>
+       <title> List of categories</title>
+    </head>
+      <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!--    jQuery API IMPORT-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="/static/category.css" rel="stylesheet"/>
+
+
+    <body>
+    <div class="maincontainer">
+        <div class="box" style="padding: 10px">
+            <div class="boxheading">
+
+                <span style=" padding:3px; width:12%;display:flex;
+                justify-content: flex-start;"><a href="http://localhost:8000/categoryinterface/"><i class="material-icons"
+                            style="color:#FFFF;font-size: 35px;">add_circle</i></a></span>
+
+                <span class="headingtext">Category List</span>
+            </div>
+     <table class="striped">
+        <thead>
+          <tr>
+              <th> id</th>
+              <th>Category Name</th>
+              <th>Icon</th>
+              <th>Update</th>
+          </tr>
+            </thead>
+        <tbody>
+    {% for row in records %}
+    <tr><td>{{row.categoryid}}</td>
+        <td>{{row.categoryname}}</td>
+        <td><img src="/static/{{ row.categoryicon }}" class="imgbtn" width="50" categoryicon="{{row.categoryicon}}"  categoryid="{{row.categoryid}}"></td>
+        <td>  <a class="waves-effect waves-light btn modal-trigger editdeletebtn" cid="{{ row.categoryid }}" cname="{{row.categoryname}}" href="#modal1">Edit/Delete</a></td>
+    </tr>
+     {% endfor %}
+        </table>
+        </div>
+    </div>
+
+<!--Modal structure -->
+    <div id="modal1" class="modal">
+    <div class="modal-content">
+
+
+    <input type="hidden" value='{{row.categoryid}}' id="categoryid">
+                <div class="modelbox">
+
+                         <div class="boxheading">
+                             <span class="headingtext">Category Interface</span>
+                         </div>
+
+                    <div>
+                         <div class="row">
+                               <div class="input-field col s12">
+                                   <i class="material-icons prefix">account_circle</i>
+                                   <input  id="categoryname" name="categoryname"  type="text" class="validate" required>
+                                   <label for="categoryname">category name</label>
+                               </div>
+                         </div>
+
+                        <div class="row">
+                            <div class="col s6 btnrow">
+                                 <button class="btn waves-effect waves-light btstyle" type="button" id="editbtn">Edit
+                                    <i class="material-icons right">edit</i>
+                                 </button>
+                            </div>
+
+                            <div class="col s6 btnrow">
+                                   <button class="btn waves-effect waves-light btstyle" type="button" id="delbtn">Delete
+                                    <i class="material-icons right">delete</i>
+                                  </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 btnrow">
+                                <div id="messagestyle"></div>
+                             </div>
+                       </div>
+
+                    </div>
+                </div>
+
+
+
+
+    </div>
+
+    <div class="modal-footer">
+      <a href="#!" class="waves-effect waves-green btn-flat btnclose" >Close</a>
+    </div>
+  </div>
+
+             <!--Modal structure  picture -->
+    <div id="modal2" class="modal" style="width:400px;height:auto;display: flex;justify-content: center;">
+         <div class="modal-content" >
+             <div style="padding: 10px">
+        <input type="hidden" id="icon_cid">
+        <img id="icon" width="100">
+     </div>
+             <div style="padding: 15px;font-weight: bold" >Select New Picture</div>
+                 <div style="padding: 15px;">
+                         <div class="input-field col s12">
+                                  <div class="file-field input-field">
+                                          <div class="btn">
+                                             <span>File</span>
+                                             <input type="file" id="newicon" required>
+                                        </div>
+                                              <div class="file-path-wrapper">
+                                                  <input class="file-path validate" type="text">
+                                              </div>
+                                         </div>
+                                  </div>
+
+                                <button class="btn waves-effect waves-light editiconbtn" type="button" >Edit Icon
+                                    <i class="material-icons right">edit</i>
+                                 </button>
+                                <a href="#!" class="waves-effect waves-green btn-flat btnclose" >Close</a>
+
+
+
+                             </div>
+                     </div>
+            </div>
+
+    </body>
+ <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        $('#modal1').modal();
+        $('#modal2').modal();
+        $('#categoryname').val(' ')
+
+        $('.editdeletebtn').click(function () {
+
+             $('#messagestyle').val(" ")
+
+            $('#categoryname').val(($(this).attr('cname')))  //already show that  name written in page
+            $('#categoryid').val(($(this).attr('cid'))) // id alreay written
+        })
+
+        $('#editbtn').click(function () {
+
+            $.getJSON(' http://localhost:8000/editcategory', {'categoryid': $('#categoryid').val(), 'categoryname':$('#categoryname').val()}, function (data) {
+                if(data.result)
+                { $('#messagestyle').html('<b>Category Update Successfully..</b>')}
+                else
+                { $('#messagestyle').html('<b>Fail to Update Category..</b>')}
+
+            })
+        })
+        $('#delbtn').click(function () {
+          $.getJSON(' http://localhost:8000/deletecategory', {'categoryid': $('#categoryid').val()}, function (data) {
+                if(data.result)
+                { $('#messagestyle').html('<b>Category deleted Successfully..</b>')}
+                else
+                { $('#messagestyle').html('<b>Fail to delete Category..</b>')}
+
+              })
+        })
+        $('.btnclose').click(function () {
+
+               $('#model1').modal('close');
+            window.location.reload('http://localhost:8000/displaycategories')
+})
+        $('.imgbtn').click(function () {
+          //  alert($(this).attr('categoryid'))
+            $('#icon_cid').val($(this).attr('categoryid'))
+            $('#modal2').modal('open');
+            $('#icon').attr('src',`/static/${$(this).attr('categoryicon')}`)
+        })
+
+    });
+
+
+        $('.editiconbtn').click(function () {
+            var formdata=new FormData()
+            alert($('#icon_cid').val())
+            formdata.append('categoryid',$('#icon_cid').val())
+            var file=$('#newicon')[0].files
+
+            if(file.length>0)
+                formdata.append('categoryicon',file[0])
+
+         $.ajax({
+                url:'/editcategoryicon',
+                headers:{
+                'X-CSRFToken':'{{ csrf_token }}'
+                },
+                type: 'post',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    if(response !=0 ){
+                        alert
+                        (true)
+                    }
+                    else{
+                        alert(false)
+                    }
+                }
+
+            })
+        })
+
+
+</script>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<link href="/static/category.css" rel="stylesheet">
+<html lang="en">
+
+<head>
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/project.js"></script>
+
+
+
+
+    <meta charset="UTF-8">
+    <title>Images Interface</title>
+</head>
+
+<body>
+
+    <form action="/submitimage" enctype="multipart/form-data" method="post">{% csrf_token %}
+
+        <div class="maincontainer">
+
+            <div class="box" style="padding: 15px;">
+
+                <div class="boxheading">
+                    <span class="headingtext" >Add Pictures</span>
+                    <span>
+                        <a href="http://localhost:8000/displayproduct"><i class="material-icons right"
+                                style="color: white;margin-left: 300px;">toc</i></a>
+                    </span>
+
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select id="categoryid" name="categoryid">
+                                <option value="" disabled selected>Choose your option</option>
+                            </select>
+                            <label for="categoryid">Choose Category</label>
+
+                        </div>
+                        <div class="input-field col s6">
+                            <select id="subcategoryid" name="subcategoryid">
+                                <option value="" disabled selected>Choose your option</option>
+                            </select>
+                            <label for="subcategoryid">Choose SubCategory</label>
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="input-field col s6">
+                            <select id="brandid" name="brandid">
+                                <option value="" disabled selected>Choose your option</option>
+                            </select>
+                            <label for="brandid">Choose Brand</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <select id="productid" name="productid">
+                                <option value="" disabled selected>Choose your option</option>
+                            </select>
+                            <label for="productid">Choose Product</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file" required name="productimage">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col s6 btnrow">
+                            <button class="btn waves-effect waves-light btnsize btn" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+
+                        </div>
+
+                        <div class="col s6 btnrow">
+                            <button class="btn waves-effect waves-light btnsize btntransition" type="reset"
+                                name="action" style="background: #ef5350">Reset
+                                <i class="material-icons right">delete</i>
+                            </button>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 btnrow">
+                        <span class="messagestyle">{{ message }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+</html>

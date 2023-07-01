@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Med Health</title>
+
+      <!--    jQuery API IMPORT-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+  <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <script src="/static/user.js" ></script>
+
+    <script>
+        window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted ||
+                         ( typeof window.performance != "undefined" &&
+                              window.performance.navigation.type === 2 );
+  if ( historyTraversal ) {
+    // Handle page restore.
+    window.location.reload();
+  }
+});
+    </script>
+
+</head>
+<body>
+
+{% include 'NavBar.html' %}
+<div style="margin-top: 2px;">
+     <div class="carousel carousel-slider">
+    <a class="carousel-item" href="#one!"><img src="/static/1.png"></a>
+    <a class="carousel-item" href="#two!"><img src="/static/2.png"></a>
+    <a class="carousel-item" href="#three!"><img src="/static/3.png"></a>
+    <a class="carousel-item" href="#four!"><img src="/static/4.png"></a>
+
+      </div>
+
+</div>
+
+<!--Sub Catgeory Start-->
+<div id="subcategorylist" style="display: flex;flex-direction: row;flex-wrap: wrap;margin-top:5px;margin-left: 40px; "></div>
+
+<!-- Subcategory End-->
+
+
+<!-- Product start-->
+<div style="padding:10px;display: flex;flex-direction: row;flex-wrap: wrap;margin-left: 40px;" id="productlist">
+
+</div>
+<!-- Product End-->
+
+
+{% include 'Footer.html' %}
+
+</body>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+
+  $(document).ready(function(){
+   $('.carousel.carousel-slider').carousel({
+       fullWidth: true,
+       indicators: true
+   })
+var newdata={}
+var products
+$.getJSON('http://localhost:8000/fetch_all_Product_user',function (data) {
+    products=data.data
+    data.data.map((item)=>{
+        newdata[item.productname]=`/static/${item.productimage}`
+    })
+})
+
+
+
+    $('input.autocomplete').autocomplete({
+      data: newdata
+    });
+
+     // $('input.autocomplete').change(function () {
+     //     //console.log($('input.autocomplete').val())
+     //     try{
+     //     var data=products.filter(item=>item.productname==$('input.autocomplete').val())[0]
+     //     //console.log(data)
+     //    data=JSON.stringify(data)
+     //     window.location=`http://localhost:8000/Buy_product?product=${data}`
+     //         }catch(e)
+     //     { }
+
+      $('input.autocomplete').change(function () {
+          alert('www')
+          console.log("xxxxxxxxxx",$('input.autocomplete').val())
+          alert('pp')
+            try {
+                var data = products.filter(item => item.productname == $('input.autocomplete').val())[0]
+
+                // console.log(data)̥
+                // alert(JSON.stringify(data.productid))
+
+                data = JSON.stringify(data)
+                // alert(data)
+                window.location = `http://localhost:8000/Buy_product?product=${data}`
+            }
+            catch(e)
+            {
+                alert(e)
+            }
+     })
+  });
+</script>
+</html>

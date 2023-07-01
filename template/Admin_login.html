@@ -1,0 +1,73 @@
+<html>
+ <link href="/static/login.css" rel="stylesheet">
+
+
+<!--       Compiled and minified CSS-->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!--     Compiled and minified JavaScript-->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!--       Import Google Icon Font-->
+           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+ <form action="/Submit_login" method="post"> {% csrf_token %}
+
+<head>
+
+    <title>Login</title>
+</head>
+<body>
+
+
+       <div class="box">
+           <img  src="/static/med.png" style=" margin-left:80px;width:50%;">
+
+           <div  id="admin">
+               <span style="font-size: 40px;font-variant: small-caps;font-weight: bold;">Admin Login</span>
+
+
+           <div style="display: flex;justify-content: center;align-items: center;margin-top: 20px;">
+          <div class="row">
+                    <div class="input-field col s12 " >
+                            <i class="material-icons prefix ">person</i>
+                            <input id="username" name="username" type="text" class="validate input" required >
+                            <label for="username">Username</label>
+                        </div>
+
+                       <div class="input-field col s12 " style="margin-top: 10px;">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <input id="password" name="password" type="password" class="validate input" required >
+                            <label for="password">Password</label>
+                        </div>
+
+                      <div class="row" >
+                            <div class="col s12 btnrow" >
+                                 <button class="btn waves-effect waves-light" type="submit" name="action" style="margin-top: 30px;
+                                 width: 50%;font-weight: bold;position:relative;left:10px;background: #2f3640;
+                                 border-radius: 10px" id="login">Login</button>
+                            </div>
+                      </div>
+
+
+                    </div>
+
+                    <div class="row">
+                            <div class="col s12" style="position: relative;right: 300px;top:180px;">
+                                <span style="font-weight: bold;color:#ef5350;font-size:15px;padding:5px;">{{message}}</span>
+                             </div>
+                       </div>
+
+           </div>
+       </div>
+
+       </div>
+
+</body>
+
+      <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</form>
+</html>
+

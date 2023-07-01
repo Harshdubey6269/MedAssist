@@ -1,0 +1,77 @@
+.brand_maincontainer {
+
+    width: 100%;
+    height: 98%;
+   background:#c8d6e5;
+
+      display: flex;
+
+    justify-content: center;
+
+}
+
+.brand_box{
+    width: 50%;
+    height:auto;
+    background:#f1f2f6;
+    margin-top: 20px;
+
+}
+.brand_box_heading{
+    width: 100%;
+    height: 10%;
+    background:#7bed9f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnrow{
+   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*-----------------------------DISPLAY-----------------------------------*/
+.brand_containerdisplay {
+
+    width: 100%;
+    height:100%;
+   background:#c8d6e5;
+      display: flex;
+     justify-content: center;
+
+}
+
+
+.brand_tablebox{
+    width:80%;
+    height:auto;
+    background: #f1f2f6;
+     margin-top: 20px;
+    margin-bottom: 15px;
+
+}
+.brand_displayheading{
+    width:100% ;
+    height:auto;
+    background: #2bcbba;
+    display: flex;
+    justify-content: center;
+}
+.brand_displaytext{
+    font-weight: bold;
+    font-size: 200%;
+    width: 60%;
+
+}
+
+/*------------MODAL BOX MAIN--------------------------*/
+
+.brand_modalbox{
+    width: 100%;
+    height: auto;
+
+}
+.brand_messagestyle{
+    font-weight: bold;
+    font-size: 20px;
+}

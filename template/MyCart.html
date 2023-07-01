@@ -1,0 +1,511 @@
+<html>
+  <head>
+
+
+      <title>Shopping Cart</title>
+      {% include 'NavBar.html' %}
+  </head>
+   <body>
+ <div class="row" style="margin-top: 25px;" >
+    <div>
+        <div class="col s6" style=" margin-top: 10px; margin-left: 5px; background: #f5f6fa;">
+            <div class="row">
+                <span style="color: black; font-weight: bold;font-size: 20px;margin-left: 15px;">My Cart</span>
+                <span style="font-size:20px;font-weight: bold;">({{totalproduct}} items)</span>
+                <span style="font-size:20px;display: flex;justify-content: flex-end; font-weight: bold; margin-right: 15px;">Rs.{{totlamt}}</span>
+            </div>
+
+            {% for row in data %}
+
+            <div class="row" style="margin-top: 15px;">
+                <div class="col s6">
+                    <img src="/static/{{row.productimage}}" width="50%">
+                </div>
+                <div class="col s6">
+                    <div style="width: 320px;display: flex;flex-direction: row; justify-content: space-between;">
+                    <span style="color: black;font-weight: bold;font-size: 20px;">
+                        {{ row.productname }}
+                    </span>
+                    <span style=" color: black;font-weight: initial;font-size: 18px;">
+                       Rs. {{ row.productprice }}
+                    </span>
+                        </div>
+                    <div style="color: #30336b; font-weight: bold;">
+                        &#x20b9 {{ row.offerprice }} <s style="color:#ef5350 ;font-size: 13px;">Rs.{{ row.price }}</s><span style="color: green;font-weight: bold;"> You Save &#x20b9 {{row.save}}</span>
+                    </div>
+                    <div style="color: dodgerblue;font-weight: bold;">Sold By Reliance Retail</div>
+                    <div style="color: #30336b;">SAVE FOR LATER
+                    <span id="button" style="display: flex;justify-content: flex-end;">
+                            <a  product ="{{product}}" class="btn-floating btn-small remove" style="background: #2f3640;"><i class="material-icons">remove</i></a>
+                            <span id="qnty"style="margin-left: 10px;margin-right: 10px;">{{row.qnty}}</span>
+
+                            <a product ="{{product}}" class="btn-floating btn-small plus" style="background: #2f3640;"><i class="material-icons">add</i></a>
+                        </span></div>
+                </div>
+            </div>
+               {% endfor %}
+
+    </div>
+    </div>
+    <div>
+        <div class="col s5" style=" margin-top: 10px; margin-left: 15px; background: #f5f6fa; ">
+            <div style="padding: 3px;font-size: 20px; font-weight: bold;color: #30336b;border: #30336b;">PAYMENT DETAILS</div>
+            <div>MRP Total <span style="display: flex;justify-content: flex-end;">Rs.{{totalprice}}</span></div>
+            <hr>
+            <span>Product Discount <span style="display: flex;justify-content: flex-end;">-Rs.{{totalsaving}}</span></span>
+            <hr>
+            <span style="font-weight: bold;">Total Amount Rs.<span style="display: flex; justify-content: flex-end; align-items: flex-end;"> Rs.<span id="totlamt">{{totlamt}}</span> </span></span>
+            <div style="color: green; font-weight: bold;">You Save Rs {{totalsaving}}</div>
+            <div style="display: flex;justify-content: center; ">
+               <button  class="btn wave light-wave" id="placeorder" style=" background-color: #2f3640;font-weight: bold;font-size: 100%; width: 60%;">Place Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+   <!-- Modal Structure for OTP-->
+  <div id="modal1" class="modal" style="width: 60%;">
+    <div class="modal-content">
+      <div class="maincontainer" style="max-height: 350px;overflow: hidden;">
+          <div class="box" style="max-height: 350px;overflow: hidden;">
+              <div class="row">
+
+                  <div class="col s4" >
+                      <img src="/static/signin.png" style="width:120%;padding: 10px;">
+                  </div>
+
+                  <div class="col s8" >
+                      <span style="font-weight: bold;font-variant: small-caps;font-size: 30px;position: relative;left:150px;">Sign In</span>
+                      <div style="font-size:20px;font-family: Arial"> Sign In to Access your Order , Offer  and Wishlist   </div>
+
+                        <div class="row">
+                             <div class="input-field col s12" style="margin-top: 40px;">
+                                      <i class="material-icons prefix">phone_iphone</i>
+                                      <input id="m1mobile" name="mobileno" type="tel" class="validate" required>
+                                      <label for="m1mobile">Your Mobile Number</label>
+
+                                <div id="send" style="display: flex;justify-content: center;padding: 20px;">
+                                    <a style="background: #2f3640;" class="btn-floating btn-medium ">
+                                        <i class="material-icons">send</i></a>
+                                </div>
+
+                                 <div id="otpbtn"><div class="input-field">
+                                     <i class="material-icons prefix"></i>
+                                      <input id="userotp" name="userotp" type="tel" class="validate"  required>
+                                      <label for="userotp">Enter Your OTP</label>
+                                   </div>
+                                 <div style="display: flex;align-items: center;justify-content: center;">
+                                     <span style="font-weight: bold;padding: 5px;position:relative;left: 30px;">Sending OTp in 60 sec...</span>
+                                 </div>
+                                       <div style="display: flex;justify-content: center;" id="verify">
+                                          <button  class="btn wave light-wave"  style=" background-color: #2f3640;font-weight: bold;font-size: 100%; width: 60%;">Verify</button>
+                                       </div>
+
+                                 </div>
+                             </div>
+                        </div>
+
+                  </div>
+
+                  </div>
+              </div>
+          </div>
+
+
+    </div>
+
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+
+ <input type="hidden" id="otp">
+<!--       ------------------------------------  Modal End ----------------------------------------------  -->
+
+
+     <!-- Modal Structure  for Registration -->
+  <div id="modal2" class="modal" style="width: 70%;height: 80%">
+    <div class="modal-content">
+      <div class="maincontainer" style="max-height: 411px;overflow: hidden;">
+
+          <div class="box" style="max-height:411px ;overflow: hidden;">
+
+                      <span style="display: flex;justify-content: flex-end;position: relative;right:0px;font-size:7px;">
+                                <a href="#!" class="modal-close  waves-red btn-flat red">
+                                    <i class="material-icons prefix">close</i></a>
+                        </span>
+
+              <div class="row">
+
+                  <div class="col s4" >
+                      <img src="/static/singup.png" style="width: 120%;padding: 10px;">
+                  </div>
+
+                  <div class="col s8" style="position: relative;left: 30px;">
+
+
+
+                      <span style="font-weight: bold;font-variant:small-caps;font-size: 30px;position: relative;left:200px;">Sign Up</span>
+                      <div style="font-size:20px;font-family:Calibri;margin-left: 50px;"> Sign In to Access your Order , Offer  and Wishlist</div>
+
+                        <div class="row">
+                             <div class="input-field col s6">
+                                      <i class="material-icons prefix">account_circle</i>
+                                      <input id="firstname" name="firstname" type="tel" class="validate" required>
+                                      <label for="firstname">First Name</label>
+                             </div>
+                              <div class="input-field col s6" >
+                                      <i class="material-icons prefix">person</i>
+                                      <input id="lastname" name="lastname" type="tel" class="validate" required>
+                                      <label for="lastname">Last Name</label>
+                             </div>
+                        </div>
+
+                          <div class="row">
+                             <div class="input-field col s6" >
+                                      <i class="material-icons prefix">phone</i>
+                                      <input id="m2mobile" name="mobileno" type="tel" class="validate" required>
+                                      <label for="m2mobile">Mobile Number</label>
+                              </div>
+                             <div class="input-field col s6">
+                                      <i class="material-icons prefix">mail</i>
+                                      <input id="email" name="email" type="tel" class="validate" required>
+                                      <label for="email">Email Address</label>
+                             </div>
+                        </div>
+
+                       <div class="row" >
+                             <div class="input-field col s6">
+                                      <i class="material-icons prefix">lock</i>
+                                      <input id="password" name="password" type="password" class="validate" required>
+                                      <label for="password">Password</label>
+                             </div>
+                             <div class="input-field col s6">
+                                      <i class="material-icons prefix">security</i>
+                                      <input id="confirmpassword" name="confirmpassword" type="password" class="validate" required>
+                                      <label for="confirmpassword">Confirm Password</label>
+
+                                  <div style="position: relative;right: 40%;margin:1px;">
+                                  <button  id="btnsubmit"  class="btn wave light-wave"  style=" background-color: #2f3640;font-weight: bold;font-size: 90%; width: 40%;">Submit</button>
+                              </div>
+
+                             </div>
+
+
+                        </div>
+
+
+                       </div>
+
+
+           </div>
+
+
+                  </div>
+              </div>
+
+
+      </div>
+
+<!--    <div class="modal-footer">-->
+<!--      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>-->
+<!--    </div>-->
+  </div>
+
+
+                                               <!-- Modal End-->
+
+
+
+                                           <!-- Modal Structure  for Address -->
+  <div id="modal3" class="modal" style="width: 60%;max-height: 590px;background:#ffffff;">
+    <div class="modal-content">
+      <div class="maincontainer" style="max-height: 590px;overflow: hidden;">
+
+          <div class="box" style="max-height:590px ;overflow: hidden;">
+
+<!--                      <span style="display: flex;justify-content: flex-end;position: relative;right:0px;font-size:7px;">-->
+<!--                                <a href="#!" class="modal-close  waves-red btn-flat red">-->
+<!--                                    <i class="material-icons prefix">close</i></a>-->
+<!--                        </span>-->
+
+              <div class="row">
+
+<!--                  <div class="col s4" >-->
+<!--                      <img src="/static/registration.jpg" style="width: 120%;padding:1px;">-->
+<!--                  </div>-->
+
+                  <div class="col s12" style="position: relative;left: 30px;">
+
+                    <input type="hidden" id="customername">
+
+                      <span style="font-weight: bold;font-variant:small-caps;font-size: 30px;position: relative;left:220px;color: #000000;">Welcome To MedAssist</span>
+                      <div  style="font-size:20px;font-family:Calibri;margin-left: 50px;color: #000000;position:relative;left: 220px"><span id="address" style="font-weight: bold;"></span> Add Your Address</div>
+
+                      <div class="row">
+                          <div class="input-field col s6">
+                                <i class="material-icons prefix">local_phone</i>
+                                      <input id="m3mobileno" name="m3mobileno" type="tel" class="validate" required>
+                              <label for="m3mobileno">Mobile Number</label>
+                          </div>
+                           <div class="input-field col s6">
+                                <i class="material-icons prefix">email</i>
+                                      <input id="m3email" name="m3email" type="tel" class="validate" required>
+                              <label for="m3email">Email Address</label>
+                          </div>
+                      </div>
+
+
+
+                        <div class="row">
+                             <div class="input-field col s12">
+                                      <i class="material-icons prefix">format_list_bulleted</i>
+                                      <input id="house" name="house" type="tel" class="validate" required>
+                                      <label for="house">House No.,Building Name(Required)*</label>
+                             </div>
+                        </div>
+                        <div class="row">
+                              <div class="input-field col s12" >
+                                      <i class="material-icons prefix">format_list_bulleted</i>
+                                      <input id="areaname" name="areaname" type="tel" class="validate" required>
+                                      <label for="areaname">Road name,Area,Colony(Required)*</label>
+                             </div>
+                        </div>
+
+                          <div class="row">
+                             <div class="input-field col s4" >
+                                      <i class="material-icons prefix">pin_drop</i>
+                                      <input id="pincode" name="pincode" type="tel" class="validate" required>
+                                      <label for="pincode">Pincode(Required)*</label>
+                              </div>
+                              <div class="input-field col s4" >
+                                      <i class="material-icons prefix">pin_drop</i>
+                                      <input id="state" name="state" type="tel" class="validate" required>
+                                      <label for="state">State(Required)*</label>
+                              </div>
+                                 <div class="input-field col s4" >
+                                      <i class="material-icons prefix">pin_drop</i>
+                                      <input id="city" name="city" type="tel" class="validate" required>
+                                      <label for="city">City(Required)*</label>
+                              </div>
+
+                              </div>
+                        </div>
+
+
+
+              </div>
+
+                 <div>
+                           <div style="position: relative;left: 30%;margin:5px;">
+                                  <button  id="address_submit"  class="btn wave light-wave"  style=" background-color:#2f3640;font-weight: bold;font-size: 90%; width: 35%;">Submit</button>
+                              </div>
+                           </div>
+                  </div>
+              </div>
+
+
+      </div>
+
+<!--    <div class="modal-footer">-->
+<!--      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>-->
+<!--    </div>-->
+  </div>
+
+
+
+
+
+
+
+
+ </body>
+
+{% include 'Footer.html' %}
+
+
+   <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</html>
+
+<script>
+  $(document).ready(function(){
+    $('.modal').modal();
+      $('#otpbtn').hide()
+ });
+
+    $('#placeorder').click(function () {
+        if($('#placeorder').html()=='Make Payment')
+        { payment() }
+        else{
+        $('#otpbtn').hide()
+        $('#send').show()
+        $('#modal1').modal('open');
+        }
+        $('#send').click(function () {
+            $('#send').hide()
+            $('#otpbtn').show()
+            var otp=generateOtp()
+            $('#otp').val(otp)
+
+        })
+    })
+        $('#verify').click(function () {
+            if($('#otp').val()==$('#userotp').val()) {
+                $.getJSON('/check_usermobileno', {'mobileno': $('#m1mobile').val()}, function (data) {
+
+                    if (data.status == false) {
+
+                        $('#modal1').modal('close');
+                        $('#m2mobile').val($('#m1mobile').val())
+                        $('#modal2').modal('open');
+                        M.updateTextFields()
+
+                    } else if (data.status == true) {
+                        var user = data.data
+                        $.getJSON('/check_useraddress', {'mobileno': $('#m1mobile').val()}, function (data) {
+                            if (data.status == true) {
+                                var address = data.data
+
+                               alert($('#m3email').val(address.email))
+                                $('#m3mobileno').val(address.mobileno)
+                                $('#areaname').val(address.areaname)
+                                $('#house').val(address.houseno)
+                                $('#pincode').val(address.pincode)
+                                $('#city').val(address.city)
+                                $('#state').val(address.state)
+                                $('#address_submit').html('Make Payment')
+                                $('#modal1').modal('close');
+                                $('#modal3').modal('open');
+                                $('#customername').val(address.firstname + " " + address.lastname)
+                                $('#address').html(`${$('#customername').val()}`)
+
+                                M.updateTextFields()
+                            } else (data.status == false)
+                            {
+                                $('#m3mobileno').val($('#m1mobile').val())
+                                $('#m3email').val(user.email)
+                                $('#modal2').modal('close');
+                                $('#modal3').modal('open');
+                            }
+                        })
+
+                    }
+
+                })
+            }else{
+                alert('invalid otp')
+            }
+        })
+
+     $('#btnsubmit').click(function () {
+
+             $.getJSON('/insertuser',{'email':$('#email').val(),'mobileno':$('#m2mobile').val(),'firstname':$('#firstname').val()
+             ,'lastname':$('#lastname').val(),'password':$('#password').val()},function (data) {
+
+                 if (data.status ==true) {
+
+                     $('#customername').val($('#firstname').val()+" "+$('#lastname').val())
+                     $('#address').html(`${$('#customername').val()} `)
+                     $('#modal3').modal('open');
+                 }
+                 else
+                 {
+                      alert('Registration fail')
+                 }
+
+             })
+        })
+
+       $('#address_submit').click(function () {
+           if($('#address_submit').html()=='Add Address') {
+
+               $.getJSON('/insertaddress', {
+                   'm3email': $('#m3email').val(),
+                   'm3mobileno': $('#m3mobileno').val(),
+                   'house': $('#house').val(),
+                   'areaname': $('#areaname').val(),
+                   'city': $('#city').val(),
+                   'state': $('#state').val(),
+                   'pincode': $('#pincode').val()
+               }, function (data) {
+
+                   if (data.status == true) {
+
+                       alert('successfully submited')
+                       $('#modal3').modal('close');
+                       $('#placeorder').html('Make Payment')
+
+                   } else {
+                       alert('submission fail')
+                   }
+
+               })
+           }else{
+                  $('#placeorder').html('Make Payment')
+                     $('#modal3').modal('close');
+
+           }
+           })
+
+
+  function payment(){
+    var options = {
+	"key": "rzp_test_GQ6XaPC6gMPNwH",
+	"amount":parseInt($('#totlamt').html())*100, // Example: 2000 paise = INR 20
+	"name": "MedAssist",
+	"description": "Payment for Shopping",
+	"image": "/static/medassistlogo.png",// COMPANY LOGO
+	"handler": function (response) {
+		console.log(response);
+		// AFTER TRANSACTION IS COMPLETE YOU WILL GET THE RESPONSE HERE.
+
+	},
+	"prefill": {
+		"name":$('#customername').val(), // pass customer name
+        "email":$('#m3email').val(),
+		"contact":$('#m3mobileno').val() //customer phone no.
+	},
+	"notes": {
+		"address": "" //customer address
+	},
+	"theme": {
+		"color": "#2f3640" // screen color
+	}
+    };
+               console.log(options);
+               var propay = new Razorpay(options);
+               propay.open();
+
+}
+
+
+function generateOtp()
+{
+    var otp=parseInt(Math.random()*8999)+1000
+    alert(otp)
+
+    var qs={
+
+      loginid: 'VIKSDIWS',
+      password: 'Softech123@@',
+      msg: otp,
+
+      send_to:$('#m3mobileno').val(),
+
+      senderId: 'VIKSDIWS',
+      routeId: '8',
+      snsContentType: 'english'
+    }
+
+     $.getJSON("http://167.114.117.218/GatewayAPI/rest",qs,function (response) {
+         alert(response)
+     })
+     return(otp)
+}
+
+
+
+  </script>

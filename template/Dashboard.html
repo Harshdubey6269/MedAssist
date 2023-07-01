@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>MEDHEALTH</title>
+</head>
+
+
+ <!--    jQuery API IMPORT-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+      <!-- Compiled and minified CSS -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+
+      <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+       <!--Import Google Icon Font-->
+           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<script>
+     // Or with jQuery
+
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+
+</script>
+<body>
+
+
+  <nav>
+    <div class="nav-wrapper" style="background: #00d2d3;">
+      <a href="#!" class="brand-logo"><img src="/static/medassistlogo.png" style="width: 21%;"> </a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="http://localhost:8000/displaycategories"  target="mw">Categories</a></li>
+        <li><a href="http://localhost:8000/displaysubcategory" target="mw">Sub-Categories</a></li>
+        <li><a href="http://localhost:8000/display_brand" target="mw">Brand</a></li>
+        <li><a href="http://localhost:8000/displayproduct" target="mw">Product</a></li>
+        <li><a href="http://localhost:8000/imagesinterface" target="mw">Pictures</a></li>
+        <li><a href="http://localhost:8000/admin_logout" target="_blank">Logout</a></li>
+          <li><div style="color: black">{{Admindata.adminname}}</div></li>
+          <li><div>
+              <img src="/static/{{Admindata.picture}}" class="circle" width="40vw" style="margin:5px;">
+          </div></li>
+
+
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+     <li><a href="http://localhost:8000/displaycategories" target="mw">Categories</a></li>
+        <li><a href="http://localhost:8000/displaysubcategory" target="mw">Sub-Categories</a></li>
+        <li><a href="http://localhost:8000/display_brand" target="mw">Brand</a></li>
+        <li><a href="http://localhost:8000/displayproduct" target="mw">Product</a></li>
+        <li><a href="http://localhost:8000/imagesinterface" target="mw">Pictures</a></li>
+  </ul>
+
+<div>
+    <iframe name="mw" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+
+</body>
+    <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</html>
